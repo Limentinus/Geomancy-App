@@ -15,21 +15,34 @@ body {
     direction: rtl;
 }
 
+#I, #II, #III, #IV, #V, #VI, #VII, #VIII {
+    outline: 1px solid black;
+    text-align: center;
+}
+
 #IX, #X, #XI, #XII {
+    outline: 1px solid black;
+    text-align: center;
     grid-column: span 2;
 }
 
 #XIII, #XIV {
+    outline: 1px solid black;
+    text-align: center;
     grid-column: span 4;
 }
 #XV {
+    outline: 1px solid black;
+    text-align: center;
     grid-column: span 8;
     grid-row: span 2;
     border-bottom-left-radius: 300px;
     border-bottom-right-radius: 300px;
 }
 
-.figureContainer {
-    outline: 1px solid black;
-    text-align: center;
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
