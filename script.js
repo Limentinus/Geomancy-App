@@ -47,7 +47,10 @@ function inputQuestion() {
     const labelText = document.createElement('label');
     const inputText = document.createElement('input');
     const inputButton = document.createElement('button');
-
+    const container1 = document.createElement('div');
+    container1.setAttribute("id", "container1");
+    display.append(container1);
+    
     inputButton.innerText = "Submit";
     labelText.innerText = "Ask Your Question";
 
@@ -55,7 +58,7 @@ function inputQuestion() {
     inputText.setAttribute("id", "inputText");
     inputText.setAttribute("type", "text");
 
-    display.append(labelText);
+    container1.append(labelText);
     labelText.append(inputText);
     labelText.append(inputButton);
 
@@ -68,52 +71,64 @@ function inputQuestion() {
         labelText.remove();
 
         const questionTitle = document.createElement('h1');
-        display.append(questionTitle);
+        const explainP = document.createElement('p');
+        explainP.innerText = "Click the Click Counter as often as feels right. Then click Generate to generate a figure."
+        display.insertBefore(questionTitle, container1);
+        container1.append(explainP);
         questionTitle.innerText = question;
         motherMaker();
 
     });
 };
 
-inputQuestion();
 
 function motherMaker() {
+
+
     const clickCounter = document.createElement('button');
     clickCounter.setAttribute("id", "clickCounter");
     clickCounter.innerText = "Click Counter";
-    display.append(clickCounter);
+    container1.append(clickCounter);
 
     const generate = document.createElement('button');
     generate.setAttribute("id", "generate");
     generate.innerText = "Generate";
-    display.append(generate);
+    container1.append(generate);
 
+    
     let clickCount = 0;
     let motherCount = 0;
+    const figureCount = document.createElement('p');
+    figureCount.setAttribute("id", "figureCount");
+    container1.append(figureCount);
     clickCounter.addEventListener("click", () => {
         ++clickCount
     });
-
+    
     generate.addEventListener("click", () => {
         if (motherCount > 15) {
-            motherCount = 1;
+            motherCount = 0;
             clickCount = 0;
-            console.log({mothers});
             updateDots();
             displayShield();
             
         };
-
+        
         mothers[motherCount] = createDots(clickCount);
         motherCount++;
         clickCount = 0;
+        figureCount.innerText = `Figure: ${motherCount}/16`;
 
-    })
-}
+        if (motherCount == 16) {
+            clickCounter.remove();
+            generate.innerText = "Create Shield Chart";
+        };
+
+    });
+};
 
 function displayShield() {
-    generate.remove();
-    clickCounter.remove();
+    container1.remove();
     drawShield();
     console.log({totalDots});
 
@@ -295,7 +310,7 @@ function drawShield() {
         two.setAttribute("class", "two");
         three.setAttribute("class", "three");
         four.setAttribute("class", "four");
-
+        
         if(totalDots[idNumber] == 2) {
             let fstDot = document.createElement('div');
             let sndDot = document.createElement('div');
@@ -304,9 +319,9 @@ function drawShield() {
             let fstDot = document.createElement('div');
             one.append(fstDot)
         };
-
+        
         idNumber++;
-
+        
         if(totalDots[idNumber] == 2) {
             let fstDot = document.createElement('div');
             let sndDot = document.createElement('div');
@@ -317,7 +332,7 @@ function drawShield() {
         };
 
         idNumber++;
-
+        
         if(totalDots[idNumber] == 2) {
             let fstDot = document.createElement('div');
             let sndDot = document.createElement('div');
@@ -326,7 +341,7 @@ function drawShield() {
             let fstDot = document.createElement('div');
             three.append(fstDot)
         };
-
+        
         idNumber++;
 
         if(totalDots[idNumber] == 2) {
@@ -345,3 +360,4 @@ function drawShield() {
 
 };
 
+inputQuestion();
