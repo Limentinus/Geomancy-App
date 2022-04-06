@@ -1,12 +1,4 @@
 let display = document.getElementById('display');
-
-// let mothers = {
-//     i: {f: undefined, a: undefined, w: undefined, e: undefined},
-//     ii: {f: undefined, a: undefined, w: undefined, e: undefined},
-//     iii: {f: undefined, a: undefined, w: undefined, e: undefined},
-//     iv: {f: undefined, a: undefined, w: undefined, e: undefined},
-// };
-
 let mothers = {
     0: undefined,
     1: undefined,
@@ -26,13 +18,17 @@ let mothers = {
     15: undefined,
 };
 
-
+let daughters;
+let nieces;
+let witnesses;
+let judge;
+let totalDots;
 
 function addDots(first, second) {
     let sum = first + second;
-    if (sum === 2 || 4) {
+    if (sum % 2 == 0) {
         return 2;
-    } else if (sum === 3) {
+    } else {
         return 1;
     };
 };
@@ -79,7 +75,7 @@ function inputQuestion() {
     });
 };
 
-// inputQuestion();
+inputQuestion();
 
 function motherMaker() {
     const clickCounter = document.createElement('button');
@@ -100,17 +96,15 @@ function motherMaker() {
 
     generate.addEventListener("click", () => {
         if (motherCount > 15) {
-            displayShield();
             motherCount = 1;
             clickCount = 0;
-            console.log(mothers);
+            console.log({mothers});
+            updateDots();
+            displayShield();
+            
         };
 
         mothers[motherCount] = createDots(clickCount);
-        
-       
-        console.log(mothers);
-
         motherCount++;
         clickCount = 0;
 
@@ -118,13 +112,131 @@ function motherMaker() {
 }
 
 function displayShield() {
-    // generate.remove();
-    // clickCounter.remove();
+    generate.remove();
+    clickCounter.remove();
     drawShield();
-
+    console.log({totalDots});
 
     
 };
+
+function updateDots() {
+    daughters = {
+        16: mothers[0],
+        17: mothers[4],
+        18: mothers[8],
+        19: mothers[12],
+        20: mothers[1],
+        21: mothers[5],
+        22: mothers[9],
+        23: mothers[13],
+        24: mothers[2],
+        25: mothers[6],
+        26: mothers[10],
+        27: mothers[14],
+        28: mothers[3],
+        29: mothers[7],
+        30: mothers[11],
+        31: mothers[15],
+        }
+    nieces = {
+        32: addDots(mothers[0], mothers[4]),
+        33: addDots(mothers[1], mothers[5]),
+        34: addDots(mothers[2], mothers[6]),
+        35: addDots(mothers[3], mothers[7]),
+        36: addDots(mothers[8], mothers[12]),
+        37: addDots(mothers[9], mothers[13]),
+        38: addDots(mothers[10], mothers[14]),
+        39: addDots(mothers[11], mothers[15]),
+        40: addDots(daughters[16], daughters[20]),
+        41: addDots(daughters[17], daughters[21]),
+        42: addDots(daughters[18], daughters[22]),
+        43: addDots(daughters[19], daughters[23]),
+        44: addDots(daughters[24], daughters[28]),
+        45: addDots(daughters[25], daughters[29]),
+        46: addDots(daughters[26], daughters[30]),
+        47: addDots(daughters[27], daughters[31])
+    }
+    witnesses = {
+        48: addDots(nieces[32], nieces[36]),
+        49: addDots(nieces[33], nieces[37]),
+        50: addDots(nieces[34], nieces[38]),
+        51: addDots(nieces[35], nieces[39]),
+        52: addDots(nieces[40], nieces[44]),
+        53: addDots(nieces[41], nieces[45]),
+        54: addDots(nieces[42], nieces[46]),
+        55: addDots(nieces[43], nieces[47])
+    }
+    judge = {
+        56: addDots(witnesses[48], witnesses[52]),
+        57: addDots(witnesses[49], witnesses[53]),
+        58: addDots(witnesses[50], witnesses[54]),
+        59: addDots(witnesses[51], witnesses[55])
+    }
+    totalDots = {
+        0: mothers[0],
+        1: mothers[1], 
+        2: mothers[2],
+        3: mothers[3],
+        4: mothers[4],
+        5: mothers[5],
+        6: mothers[6],
+        7: mothers[7],
+        8: mothers[8],
+        9: mothers[9],
+        10: mothers[10],
+        11: mothers[11],
+        12: mothers[12],
+        13: mothers[13],
+        14: mothers[14],
+        15: mothers[15],
+        16: daughters[16],
+        17: daughters[17],
+        18: daughters[18],
+        19: daughters[19],
+        20: daughters[20],
+        21: daughters[21],
+        22: daughters[22],
+        23: daughters[23],
+        24: daughters[24],
+        25: daughters[25],
+        26: daughters[26],
+        27: daughters[27],
+        28: daughters[28],
+        29: daughters[29],
+        30: daughters[30],
+        31: daughters[31],
+        32: nieces[32],
+        33: nieces[33],
+        34: nieces[34],
+        35: nieces[35],
+        36: nieces[36],
+        37: nieces[37],
+        38: nieces[38],
+        39: nieces[39],
+        40: nieces[40],
+        41: nieces[41],
+        42: nieces[42],
+        43: nieces[43],
+        44: nieces[44],
+        45: nieces[45],
+        46: nieces[46],
+        47: nieces[47],
+        48: witnesses[48],
+        49: witnesses[49],
+        50: witnesses[50],
+        51: witnesses[51],
+        52: witnesses[52],
+        53: witnesses[53],
+        54: witnesses[54],
+        55: witnesses[55],
+        56: judge[56],
+        57: judge[57],
+        58: judge[58],
+        59: judge[59],
+    }
+
+}
 function drawShield() {
     
     const container = document.createElement('div');
@@ -179,25 +291,57 @@ function drawShield() {
         element.append(dotContainer);
         dotContainer.append(one, two, three, four);
         dotContainer.setAttribute("class", "dotContainer");
-        one.setAttribute("id", `${idNumber}`);
-        idNumber++;
-        two.setAttribute("id", `${idNumber}`);
-        idNumber++;
-        three.setAttribute("id", `${idNumber}`);
-        idNumber++;
-        four.setAttribute("id", `${idNumber}`);
-        idNumber++;
         one.setAttribute("class", "one");
         two.setAttribute("class", "two");
         three.setAttribute("class", "three");
         four.setAttribute("class", "four");
 
+        if(totalDots[idNumber] == 2) {
+            let fstDot = document.createElement('div');
+            let sndDot = document.createElement('div');
+            one.append(fstDot, sndDot);
+        } else {
+            let fstDot = document.createElement('div');
+            one.append(fstDot)
+        };
+
+        idNumber++;
+
+        if(totalDots[idNumber] == 2) {
+            let fstDot = document.createElement('div');
+            let sndDot = document.createElement('div');
+            two.append(fstDot, sndDot);
+        } else {
+            let fstDot = document.createElement('div');
+            two.append(fstDot)
+        };
+
+        idNumber++;
+
+        if(totalDots[idNumber] == 2) {
+            let fstDot = document.createElement('div');
+            let sndDot = document.createElement('div');
+            three.append(fstDot, sndDot);
+        } else {
+            let fstDot = document.createElement('div');
+            three.append(fstDot)
+        };
+
+        idNumber++;
+
+        if(totalDots[idNumber] == 2) {
+            let fstDot = document.createElement('div');
+            let sndDot = document.createElement('div');
+            four.append(fstDot, sndDot);
+        } else {
+            let fstDot = document.createElement('div');
+            four.append(fstDot)
+        };
+        idNumber++;
         
+
+  
     });
 
-    
-    // console.log(figureContainers);
-}
+};
 
-// drawShield();
-displayShield();
